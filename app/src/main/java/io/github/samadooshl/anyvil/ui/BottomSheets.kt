@@ -98,7 +98,7 @@ fun TerminalSheet(
                     .padding(horizontal = 8.dp),
                 horizontalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                sessions.forEachIndexed { index, session ->
+                sessions.forEach { session ->
                     TerminalTab(
                         session = session,
                         isActive = session.id == activeSessionId,

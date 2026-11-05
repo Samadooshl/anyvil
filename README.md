@@ -2,7 +2,7 @@
 
 > *Any language, forged on your phone.*
 
-Anyvil is an original, all-in-one mobile IDE for Android and iOS designed from the ground up for phone ergonomics: write, organize, build, run, debug, and manage code without requiring a PC.
+Anyvil is an original, all-in-one mobile IDE for Android designed from the ground up for phone ergonomics: write, organize, build, run, debug, and manage code without requiring a PC. (iOS support is planned for a future milestone).
 
 It is **not** a VS Code clone or a shrunk desktop IDE. Anyvil has its own visual identity, custom design language, modular architecture, and thumb-first mobile UX.
 
@@ -12,10 +12,9 @@ It is **not** a VS Code clone or a shrunk desktop IDE. Anyvil has its own visual
 
 * **Mobile-First Ergonomics:** Code fills the entire viewport. Secondary surfaces (terminals, file trees, search, output) appear as bottom sheets anchored in the thumb zone. A dedicated symbol row boosts keyboard speed.
 * **100% Free & Open Source:** Licensed under [MPL-2.0](LICENSE). No advertisements, subscriptions, paid feature gating, telemetry, or mandatory accounts.
-* **Offline-First:** Local build and run wherever the mobile operating system permits; remote/cloud integration is strictly optional.
-* **F-Droid Compliant (Android):** 100% FOSS dependencies, zero Google Play Services or proprietary binary blobs, reproducible builds.
-* **App Store Compliant (iOS):** Adheres to iOS sandbox and security rules without compromising editor capability.
-* **Independent Platform Execution:** Android and iOS are engineered separately respecting platform capabilities rather than forcing artificial abstractions.
+* **Offline-First:** Local build and run on-device; remote/cloud integration is strictly optional.
+* **F-Droid Compliant:** 100% FOSS dependencies, zero Google Play Services or proprietary binary blobs, reproducible builds.
+* **Modular Multiplatform Foundation:** Android-first implementation with clean architectural boundaries to support iOS in a future phase without rewrites.
 
 ---
 
@@ -62,7 +61,6 @@ app/build/outputs/apk/debug/app-debug.apk
 │       │   └── ui/               # EditorScreen, BottomActionBar, BottomSheets
 │       └── res/                  # App resources (strings.xml, colors.xml)
 ├── gradle/                       # Gradle wrapper files
-├── CLAUDE.md                     # Locked engineering rules and architecture guidelines
 ├── LICENSE                       # Mozilla Public License Version 2.0 (MPL-2.0)
 ├── README.md                     # Project overview and instructions
 └── settings.gradle               # Root project definition ('Anyvil')
