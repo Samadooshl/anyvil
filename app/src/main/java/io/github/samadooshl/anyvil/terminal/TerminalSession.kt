@@ -1,19 +1,27 @@
 package io.github.samadooshl.anyvil.terminal
 
-data class TerminalSession(
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+
+class TerminalSession(
     val id: String,
     val fileName: String,
-    val output: StringBuilder = StringBuilder(),
-    var isRunning: Boolean = false,
-    var isFinished: Boolean = false
+    initialOutput: String = ""
 ) {
+    var outputText by mutableStateOf(initialOutput)
+        private set
+
+    var isRunning by mutableStateOf(false)
+    var isFinished by mutableStateOf(false)
+
     fun appendOutput(text: String) {
-        output.append(text)
+        outputText += text
     }
 
-    fun getOutput(): String = output.toString()
+    fun getOutput(): String = outputText
 
     fun clear() {
-        output.clear()
+        outputText = ""
     }
 }

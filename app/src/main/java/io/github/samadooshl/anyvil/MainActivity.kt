@@ -17,6 +17,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.github.samadooshl.anyvil.runtime.ExecutionResult
+import io.github.samadooshl.anyvil.runtime.JsExecutionEngine
 import io.github.samadooshl.anyvil.terminal.TerminalManager
 import io.github.samadooshl.anyvil.terminal.TerminalSession
 import io.github.samadooshl.anyvil.theme.*
@@ -117,17 +119,27 @@ fun AnyvilApp(
             BottomActionBar(
                 showKeyboardHelper = showKeyboardHelper,
                 onRunClick = {
-                    // Create new terminal session and execute
                     val session = terminalManager.createSession(file.name)
-                    session.appendOutput("> Running ${file.name}...\n")
+                    session.appendOutput("> node ${file.name}\n")
+                    session.isRunning = true
                     showTerminalSheet = true
 
-                    // Simulate execution (in real app, this would run JavaScript)
-                    CoroutineScope(Dispatchers.Main).launch {
-                        delay(500)
-                        session.appendOutput("> Hello from Anyvil!\n")
-                        session.appendOutput("> Sum 1-10: 55\n")
-                        session.appendOutput("> ✓ Complete!\n")
+                    val currentCode = code
+                    val fileName = file.name
+                    CoroutineScope(Dispatchers.Default).launch {
+                        val engine = JsExecutionEngine()
+                        val result = engine.execute(currentCode, fileName) { chunk ->
+                            session.appendOutput(chunk)
+                        }
+                        when (result) {
+                            is ExecutionResult.Success -> {
+                                session.appendOutput("\n[Process completed in ${result.durationMs}ms]\n")
+                            }
+                            is ExecutionResult.Failure -> {
+                                session.appendOutput("\n[Process failed in ${result.durationMs}ms]\n")
+                            }
+                        }
+                        session.isRunning = false
                         session.isFinished = true
                     }
                 },
